@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.horel</groupId>
-	<artifactId>yachessj</artifactId>
+	<artifactId>yajchess</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>yachess</name>
 	<description>Yet another chess service</description>
