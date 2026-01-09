@@ -2,22 +2,22 @@ package org.horel.yajchess.engine.model.pieces;
 
 import org.horel.yajchess.engine.enums.Color;
 import org.horel.yajchess.engine.enums.PieceType;
-import org.horel.yajchess.engine.model.Position;
 
-import java.util.List;
+public final class Piece {
 
-public interface Piece {
+    private final Color color;
+    private final PieceType type;
 
-    Color getColor();
-    PieceType getType();
-    Position getPosition();
-    void setPosition(Position position);
-    boolean isMoved();
-    void setMoved(boolean captured);
-    boolean isCaptured();
-    void setCaptured(boolean captured);
+    Piece(Color color, PieceType type) {
+        this.color = color;
+        this.type = type;
+    }
 
-    List<Position> getTheoreticalMovesPositions();
+    public Color getColor() {
+        return color;
+    }
 
-    Piece copy();
+    public PieceType getType() {
+        return type;
+    }
 }

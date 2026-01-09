@@ -1,9 +1,4 @@
-package org.horel.yajchess.engine.model;
-
-import static org.horel.yajchess.engine.constants.Constants.FIRST_FILE;
-import static org.horel.yajchess.engine.constants.Constants.FIRST_RANK;
-import static org.horel.yajchess.engine.constants.Constants.LAST_FILE;
-import static org.horel.yajchess.engine.constants.Constants.LAST_RANK;
+package org.horel.yajchess.engine.model.positions;
 
 public record Position(char file, int rank) {
 
@@ -27,9 +22,5 @@ public record Position(char file, int rank) {
     @Override
     public String toString() {
         return String.format("%s%d", file, rank);
-    }
-
-    public boolean isValid(){
-        return file >= FIRST_FILE && file <= LAST_FILE && rank >= FIRST_RANK && rank <= LAST_RANK;
     }
 }
