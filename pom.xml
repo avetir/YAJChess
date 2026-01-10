@@ -12,7 +12,7 @@
 	<artifactId>yajchess</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>yachess</name>
-	<description>Yet another chess service</description>
+	<description>Yet another Java chess</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -27,7 +27,7 @@
 		<url/>
 	</scm>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>21</java.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -61,6 +61,12 @@
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>7.1.7.Final</version>
+			<type>pom</type>
 		</dependency>
 	</dependencies>
 
