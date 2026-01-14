@@ -9,7 +9,7 @@ import org.horel.yajchess.engine.model.pieces.strategies.SteppingStrategy;
 
 import java.util.List;
 
-public final class MoveStrategyFactory {
+public final class MoveStrategyRegistry {
 
     private static final int[][] KNIGHT_OFFSETS = {{1,2},{2,1},{2,-1},{1,-2},{-1,-2},{-2,-1},{-2,1},{-1,2}};
     private static final int[][] KING_OFFSETS   = {{0,1},{1,1},{1,0},{1,-1},{0,-1},{-1,-1},{-1,0},{-1,1}};

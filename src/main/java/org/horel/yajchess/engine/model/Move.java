@@ -1,17 +1,18 @@
 package org.horel.yajchess.engine.model;
 
-import org.horel.yajchess.engine.model.pieces.Piece;
-import org.horel.yajchess.engine.enums.PieceType;
 import org.horel.yajchess.engine.enums.MoveType;
+import org.horel.yajchess.engine.enums.PieceType;
+import org.horel.yajchess.engine.model.pieces.Piece;
+import org.horel.yajchess.engine.model.positions.Position;
 
-public class Move {
-        Position from;
-        Position to;
-        Piece movedPiece;
-        Piece capturedPiece;
-        PieceType promotionPieceType;
-        MoveType moveType;
-        String algebraic;
+public final class Move {
+    private Position from;
+    private Position to;
+    private Piece movedPiece;
+    private Piece capturedPiece;
+    private MoveType moveType;
+    private PieceType promotionPieceType;
+    String algebraic;
 
     public Move(Position from, Position to, Piece movedPiece, Piece capturedPiece, MoveType moveType) {
         this.from = from;
@@ -35,6 +36,10 @@ public class Move {
 
     public Piece getCapturedPiece() {
         return capturedPiece;
+    }
+    
+    public boolean isCapture(){
+        return capturedPiece != null;
     }
 
     public PieceType getPromotionPieceType() {
