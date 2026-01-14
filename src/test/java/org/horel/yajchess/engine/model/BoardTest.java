@@ -1,26 +1,24 @@
 package org.horel.yajchess.engine.model;
 
-import org.horel.yajchess.engine.model.pieces.Piece;
-import org.horel.yajchess.engine.model.pieces.impl.Rook;
 import org.horel.yajchess.engine.enums.Color;
+import org.horel.yajchess.engine.enums.PieceType;
+import org.horel.yajchess.engine.model.pieces.Piece;
+import org.horel.yajchess.engine.model.pieces.PieceRegistry;
+import org.horel.yajchess.engine.model.positions.Position;
+import org.horel.yajchess.engine.model.positions.PositionPool;
+import org.horel.yajchess.engine.testutils.TestBoardFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
-
+    
     private Board board;
-
+    
     @BeforeEach
     public void setup() {
-        board = new Board();
-        Tile[][] tileSet = board.getTileSet();
-        int testRank = 1;
-        for (char f = 'a'; f <= 'h'; f++){
-            Color color = (f + testRank) % 2 == 0 ? Color.BLACK : Color.WHITE;
-            tileSet[f - 'a'][testRank - 1] = new Tile(f, testRank, color);
-        }
+        board = TestBoardFactory.emptyBoard();
     }
 
     private void placeTestPiece(Position pos, Piece piece) {
@@ -29,29 +27,37 @@ public class BoardTest {
 
     @Test
     public void testPlacePiece() {
-        Position pos =  new Position('a', 1);
-        Piece piece = new Rook(Color.WHITE, pos);
-        board.placePiece(piece.getPosition(), piece);
+        String fen = "8/8/8/8/8/8/8/R7";
+        Position pos =  PositionPool.get('a', 1);
+        Piece testPiece = PieceRegistry.get(Color.WHITE, PieceType.ROOK);
+        board.placePiece(pos, testPiece);
 
-        Tile tile = board.getTile(pos);
-        assertNotNull(tile.getPiece());
-        assertEquals(tile.getPiece(), piece);
-        assertEquals(piece.getPosition(), pos);
+        assertNotNull(board.getPiece(pos));
+        assertEquals(testPiece, board.getPiece(pos));
+        assertEquals(fen, board.getBoardFen());
     }
 
     @Test
     public void testMovePiece() {
-        Position posFrom =  new Position('a', 1);
-        Piece piece = new Rook(Color.WHITE, posFrom);
+        String fen = "8/8/8/8/8/8/8/4R3";
+        
+        Position posFrom =  PositionPool.get('a', 1);
+        Piece piece = PieceRegistry.get(Color.WHITE, PieceType.ROOK);
         placeTestPiece(posFrom, piece);
-        Position posTo =  new Position('h', 1);
+        Position posTo =  PositionPool.get('e', 1);
         board.movePiece(posFrom, posTo);
 
-        Tile tileFrom = board.getTile(posFrom);
-        Tile tileTo = board.getTile(posTo);
-        assertNull(tileFrom.getPiece());
-        assertNotNull(tileTo.getPiece());
-        assertEquals(tileTo.getPiece(), piece);
-        assertEquals(piece.getPosition(), posTo);
+        assertNull(board.getPiece(posFrom));
+        assertNotNull(board.getPiece(posTo));
+        assertEquals(piece, board.getPiece(posTo));
+    }
+    
+    @Test
+    public void testCreateStartingPositionBoard(){
+        String startingBoardFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+        
+        board.placeInitialPieces();
+        
+        assertEquals(startingBoardFen, board.getBoardFen());
     }
 }

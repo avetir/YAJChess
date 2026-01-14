@@ -16,7 +16,7 @@ public class PawnStrategy extends BaseMoveStrategy {
     @Override
     public List<Position> generateAttacks(Board b, Position from){
         List<Position> attacks = new ArrayList<>();
-        Piece p = requirePiece(b, from);
+        Piece p = b.requirePiece(from);
         int direction = p.getColor() == Color.WHITE ? 1 : -1;
         
         for (int[] offset : DIAGONALS) {
@@ -31,26 +31,26 @@ public class PawnStrategy extends BaseMoveStrategy {
     @Override
     public List<Position> generateMoves(Board b, Position from){
         List<Position> moves = new ArrayList<>();
-        Piece p = requirePiece(b, from);
+        Piece p = b.requirePiece(from);
         Color c = p.getColor();
         int direction = c == Color.WHITE ? 1 : -1;
 
         Position oneSquareMove = getStepPosition(from, applyDirection(REGULAR_MOVE, direction));
-        if (isEmpty(b, oneSquareMove)) {
+        if (b.isEmpty(oneSquareMove)) {
             moves.add(oneSquareMove);
             
             Position twoSquaresMove = getStepPosition(from, applyDirection(LONG_FIRST_MOVE, direction));
             boolean isOnStartRank = c == Color.WHITE && from.rank() == 2 ||
                     c == Color.BLACK && from.rank() == 7;
             
-            if (isOnStartRank && isEmpty(b, twoSquaresMove)) {
+            if (isOnStartRank && b.isEmpty(twoSquaresMove)) {
                 moves.add(twoSquaresMove);
             }
         }
         
         for (int[] offset : DIAGONALS) {
             Position posTo = getStepPosition(from, applyDirection(offset, direction));
-            if (isOccupiedByEnemyPiece(b, c, posTo)){
+            if (b.isOccupiedByEnemyPiece(c, posTo)){
                 moves.add(posTo);
             }
         }

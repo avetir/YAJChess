@@ -17,26 +17,6 @@ public abstract class BaseMoveStrategy implements MoveStrategy {
         return generateMoves(b, from);
     }
 
-    protected boolean isEmpty(Board b, Position pos){
-        return pos != null && b.getPiece(pos) == null;
-    }
-    
-    protected Piece requirePiece(Board b, Position from) {
-        Piece p = b.getPiece(from);
-        if (p == null) throw new IllegalArgumentException("No piece at " + from);
-        return p;
-    }
-    
-    protected boolean isOccupiedByOwnPiece(Board b, Color color, Position posTo){
-        Piece targetPiece = posTo == null ? null : b.getPiece(posTo);
-        return targetPiece != null && targetPiece.getColor() == color;
-    }
-
-    protected boolean isOccupiedByEnemyPiece(Board b, Color color, Position posTo){
-        Piece targetPiece = posTo == null ? null : b.getPiece(posTo);
-        return targetPiece != null && targetPiece.getColor() != color;
-    }
-
     protected Position getStepPosition(Position pos, int[] offset){
         char f = (char) (pos.file() + offset[0]);
         int r = pos.rank() + offset[1];
@@ -45,11 +25,11 @@ public abstract class BaseMoveStrategy implements MoveStrategy {
 
     protected List<Position> collectSteppingMoves(Board b, Position from, int[][] offsets){
         List<Position> moves = new ArrayList<>();
-        Color color = requirePiece(b, from).getColor();
+        Color color = b.requirePiece(from).getColor();
 
         for (int[] offset : offsets){
             Position posTo = getStepPosition(from, offset);
-            if (posTo != null && !isOccupiedByOwnPiece(b, color, posTo)){
+            if (posTo != null && !b.isOccupiedByOwnPiece(color, posTo)){
                 moves.add(posTo);
             }
         }
@@ -58,7 +38,7 @@ public abstract class BaseMoveStrategy implements MoveStrategy {
 
     protected List<Position> collectSlidingMoves(Board b, Position from, int[][] directions){
         List<Position> moves = new ArrayList<>();
-        Color color = requirePiece(b, from).getColor();
+        Color color = b.requirePiece( from).getColor();
 
         for (int[] dir : directions) {
             int fTo = from.file();

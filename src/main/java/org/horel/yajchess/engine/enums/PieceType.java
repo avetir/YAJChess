@@ -1,20 +1,20 @@
 package org.horel.yajchess.engine.enums;
 
 public enum PieceType {
-    PAWN(false),
-    KNIGHT(false),
-    BISHOP(true),
-    ROOK(true),
-    QUEEN(true),
-    KING(false);
+    PAWN('P'),
+    KNIGHT('N'),
+    BISHOP('B'),
+    ROOK('R'),
+    QUEEN('Q'),
+    KING('K');
 
-    private final boolean isSliding;
+    private final char fen;
 
-    PieceType(boolean isSliding) {
-        this.isSliding = isSliding;
+    PieceType(char fen) {
+        this.fen = fen;
     }
 
-    public boolean isSliding() {
-        return isSliding;
+    public char fen() {
+        return fen;
     }
 }

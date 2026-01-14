@@ -15,6 +15,14 @@ public class CompositeStrategy extends BaseMoveStrategy {
     }
 
     @Override
+    public List<Position> generateAttacks(Board b, Position from) {
+        return strategies.stream()
+                .flatMap(s -> s.generateAttacks(b, from).stream())
+                .distinct()
+                .toList();
+    }
+
+    @Override
     public List<Position> generateMoves(Board b, Position from) {
         return strategies.stream()
                 .flatMap(s -> s.generateMoves(b, from).stream())
